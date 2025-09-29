@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/county_data", "destination": "/api/index.py" }
+  ]
+}
