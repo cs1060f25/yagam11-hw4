@@ -6,7 +6,7 @@ from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 
-# Where is data.db?
+# Where is data.db? Not here
 DB_PATH = os.path.realpath(
     os.path.join(os.path.dirname(__file__), "..", "data", "data.db")
 )

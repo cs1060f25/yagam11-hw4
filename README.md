@@ -7,13 +7,13 @@
 ### curl tests
 curl -s -H 'content-type: application/json' \
   -d '{"zip":"02138","measure_name":"Adult obesity"}' \
-  https://<your-project>.vercel.app/county_data
+  https://yagam11-hw4.vercel.app/county_data
 
 # Missing fields -> 400
 curl -s -H 'content-type: application/json' -d '{}' \
-  https://<your-project>.vercel.app/county_data
+  https://yagam11-hw4.vercel.app/county_data
 
 # Teapot -> 418
 curl -s -i -H 'content-type: application/json' \
   -d '{"coffee":"teapot","zip":"02138","measure_name":"Adult obesity"}' \
-  https://<your-project>.vercel.app/county_data
+  https://yagam11-hw4.vercel.app/county_data
