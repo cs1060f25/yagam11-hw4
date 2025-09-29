@@ -26,7 +26,9 @@ ALLOWED_MEASURES = {
 }
 
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
+    # Open DB in read-only mode so deployment won't accidentally create a new empty DB
+    uri = f"file:{DB_PATH}?mode=ro"
+    conn = sqlite3.connect(uri, uri=True)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -44,12 +46,22 @@ def handle_http_exception(e: HTTPException):
 
 @app.errorhandler(Exception)
 def handle_unexpected_error(e: Exception):
-    # Log in real apps; keep generic message here
+    # Return succinct error details to help diagnose prod issues
     return jsonify({
         "error": "Internal Server Error",
-        "message": "An unexpected error occurred",
+        "message": str(e),
         "status": 500,
     }), 500
+
+@app.route("/healthz", methods=["GET"])
+def healthz():
+    exists = os.path.exists(DB_PATH)
+    size = os.path.getsize(DB_PATH) if exists else 0
+    return jsonify({
+        "db_path": DB_PATH,
+        "exists": exists,
+        "size": size,
+    })
 
 @app.route("/county_data", methods=["POST"])
 def county_data():

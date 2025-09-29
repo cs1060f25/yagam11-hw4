@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/county_data", "destination": "/api/index.py" }
+    { "source": "/county_data", "destination": "/api/index.py" },
+    { "source": "/healthz", "destination": "/api/index.py" }
   ]
 }
