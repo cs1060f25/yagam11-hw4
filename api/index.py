@@ -27,7 +27,8 @@ ALLOWED_MEASURES = {
 
 def get_db():
     # Open DB in read-only mode so deployment won't accidentally create a new empty DB
-    uri = f"file:{DB_PATH}?mode=ro"
+    # Use immutable=1 so SQLite never attempts to write journal/WAL files
+    uri = f"file:{DB_PATH}?mode=ro&immutable=1"
     conn = sqlite3.connect(uri, uri=True)
     conn.row_factory = sqlite3.Row
     return conn
